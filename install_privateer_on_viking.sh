@@ -1,7 +1,7 @@
 #!/bin/sh
-#SBATCH --time=00:30:00                # Time limit hrs:min:sec
+#SBATCH --time=00:45:00                # Time limit hrs:min:sec
 #SBATCH --mem=4000                     # Total memory limit
-#SBATCH --mail-type=ALL         # Mail events (NONE, BEGIN, END, FAIL, ALL)
+#SBATCH --mail-type=FAIL         # Mail events (NONE, BEGIN, END, FAIL, ALL)
 #SBATCH --mail-user=hb1115@york.ac.uk   # Where to send mail
 #SBATCH --account=chem-structglyco-2019
 
@@ -25,16 +25,23 @@ export CC=$GCC
 export CXX=$GPLUSPLUS
 export FC=$GFORTRAN
 
+startDir=$PWD
+cd ..
+PDB_analDir=$PWD
+git clone https://github.com/glycojones/privateer.git
+cd privateer
 mainDir=$PWD
-dependencyDir=$mainDir/dependencies
 
+git checkout privateerpython
+git submodule update --init --recursive
+python -m venv pvtpython
+source pvtpython/bin/activate
+source ccp4.envsetup-sh
+pip install -r requirements.txt
+
+dependencyDir=$mainDir/dependencies
 export LDFLAGS="-L$mainDir/dependencies/lib -L$mainDir/dependencies/lib64"
 export CPPFLAGS="-I$mainDir/dependencies/include"
-
-python -m venv privateerpython
-source $mainDir/privateerpython/bin/activate
-source $mainDir/ccp4.envsetup-sh
-pip install -r requirements.txt
 
 cd $dependencyDir
 if [[ ! -d $dependencyDir/bzr ]]; then
