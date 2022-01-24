@@ -31,12 +31,13 @@ PDB_analDir=$PWD
 git clone https://github.com/glycojones/privateer.git
 cd privateer
 mainDir=$PWD
+echo $mainDir
 
 git checkout privateerpython
 git submodule update --init --recursive
 python -m venv pvtpython
-source pvtpython/bin/activate
-source ccp4.envsetup-sh
+source $mainDir/pvtpython/bin/activate
+source $mainDir/ccp4.envsetup-sh
 pip install -r requirements.txt
 
 dependencyDir=$mainDir/dependencies
