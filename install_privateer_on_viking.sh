@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #SBATCH --time=00:45:00                # Time limit hrs:min:sec
 #SBATCH --mem=4000                     # Total memory limit
 #SBATCH --mail-type=FAIL         # Mail events (NONE, BEGIN, END, FAIL, ALL)
