@@ -54,6 +54,9 @@ rsync -rlpt -v -z --delete --port=33444 \
 rsync.rcsb.org::ftp_data/structures/divided/pdb/ ./pdb
 
 cd $projectSigmaDir
+rm -rf $projectSigmaDir/data_collection/intermediate_output
+rm -rf $projectSigmaDir/data_collection/final_output
+
 pip3 install -r requirements.txt
 pip install -r requirements.txt
 python3 --version
