@@ -6,7 +6,7 @@
 #SBATCH --cpus-per-task=16                                      # ...with 16 cores
 #--partition=week                                               # To prevent exceeding time limit 
 #SBATCH --mem=32gb                                              # Job memory request
-#SBATCH --time=60:00:00                                         # Time limit hrs:min:sec
+#SBATCH --time=48:00:00                                         # Time limit hrs:min:sec
 #SBATCH --output=wwpdb_data_curation_%j.log                     # Standard output and error log
 #SBATCH --account=chem-structglyco-2019
 
