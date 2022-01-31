@@ -17,7 +17,9 @@ module load lang/Python/3.8.2-GCCcore-9.3.0
 
 mainDir=/users/hb1115/scratch/PDB_anal
 cd $mainDir
-git clone https://github.com/GABRAH/quick_python_utility_scripts.git
+cd $mainDir/quick_python_utility_scripts
+git stash
+git pull
 cd $mainDir/quick_python_utility_scripts/find_models_for_uniprotID
 scriptDir=$PWD
 rm -rf output
