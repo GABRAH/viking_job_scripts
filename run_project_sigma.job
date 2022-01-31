@@ -3,9 +3,9 @@
 #SBATCH --mail-type=BEGIN,END,FAIL                              # Mail events (NONE, BEGIN, END, FAIL, ALL)
 #SBATCH --mail-user=hb1115@york.ac.uk                           # Where to send mail  
 #SBATCH --ntasks=1                                              # Run a single task...
-#SBATCH --cpus-per-task=48                                      # ...with 48 cores
+#SBATCH --cpus-per-task=32                                      # ...with 32 cores
 #SBATCH --partition=week                                               # To prevent exceeding time limit 
-#SBATCH --mem=24gb                                              # Job memory request
+#SBATCH --mem=48gb                                              # Job memory request
 #SBATCH --time=120:00:00                                         # Time limit hrs:min:sec
 #SBATCH --output=wwpdb_data_curation_%j.log                     # Standard output and error log
 #SBATCH --account=chem-structglyco-2019
