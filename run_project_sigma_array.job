@@ -3,10 +3,10 @@
 #SBATCH --mail-type=BEGIN,END,FAIL                              # Mail events (NONE, BEGIN, END, FAIL, ALL)
 #SBATCH --mail-user=hb1115@york.ac.uk                           # Where to send mail  
 #SBATCH --ntasks=1                                              # Run a single task...
-#SBATCH --cpus-per-task=16                                      # ...with 12 cores
+#SBATCH --cpus-per-task=8                                       # ...with 8 cores
 #--partition=week                                               # To prevent exceeding time limit 
-#SBATCH --mem=24gb                                              # Job memory request
-#SBATCH --time=48:00:00                                         # Time limit hrs:min:sec
+#SBATCH --mem=16gb                                              # Job memory request
+#SBATCH --time=12:00:00                                         # Time limit hrs:min:sec
 #SBATCH --output=wwpdb_data_curation_array_job_%j.log                     # Standard output and error log
 #SBATCH --account=chem-structglyco-2019
 #SBATCH --array=0-1059
@@ -43,6 +43,11 @@ echo $SLURM_CPUS_ON_NODE CPU cores available
 echo
 echo Privateer directory is located at $privateerDir
 
+echo My working directory is `pwd`
+echo Running array job index $SLURM_ARRAY_TASK_ID, on host:
+echo -e '\t'`hostname` at `date`
+echo
+
 source $privateerDir/pvtpython/bin/activate
 source $privateerDir/ccp4.envsetup-sh
 
@@ -51,12 +56,12 @@ projectSigmaDir=$privateerDir/project_sigma
 cd $projectSigmaDir
 cd $projectSigmaDir/pdb_mirror
 
-rsync -rlpt -v -z --delete --port=33444 \
-rsync.rcsb.org::ftp_data/structures/divided/pdb/ ./pdb
+# rsync -rlpt -v -z --delete --port=33444 \
+# rsync.rcsb.org::ftp_data/structures/divided/pdb/ ./pdb
 
 cd $projectSigmaDir
-rm -rf $projectSigmaDir/data_collection/intermediate_output
-rm -rf $projectSigmaDir/data_collection/final_output
+# rm -rf $projectSigmaDir/data_collection/intermediate_output
+# rm -rf $projectSigmaDir/data_collection/final_output
 
 pip3 install -r requirements.txt
 pip install -r requirements.txt
