@@ -7,9 +7,9 @@
 #--partition=week                                               # To prevent exceeding time limit 
 #SBATCH --mem=16gb                                              # Job memory request
 #SBATCH --time=12:00:00                                         # Time limit hrs:min:sec
-#SBATCH --output=wwpdb_data_curation_array_job_%j.log                     # Standard output and error log
+#SBATCH --output=wwpdb_data_curation_array_job_%j.log           # Standard output and error log
 #SBATCH --account=chem-structglyco-2019
-#SBATCH --array=0-1059
+#SBATCH --array=1-1060
 
 module purge
 
@@ -63,16 +63,16 @@ cd $projectSigmaDir
 # rm -rf $projectSigmaDir/data_collection/intermediate_output
 # rm -rf $projectSigmaDir/data_collection/final_output
 
-pip3 install -r requirements.txt
-pip install -r requirements.txt
+# pip3 install -r requirements.txt
+# pip install -r requirements.txt
 python3 --version
 which python3
 
 filename=$(awk NR==$SLURM_ARRAY_TASK_ID /users/hb1115/scratch/PDB_anal/viking_job_scripts/pdb_mirror.folders)
 python3 $projectSigmaDir/data_collection/prepare_glycans_for_clustering.py -folder $filename
 
-cd $projectSigmaDir
-ls $projectSigmaDir/pdb_mirror/pdb
-git status
+# cd $projectSigmaDir
+ls $projectSigmaDir/data_collection/intermediate_output
+# git status
 
 echo Job completed at `date`
