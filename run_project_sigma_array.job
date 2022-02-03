@@ -53,8 +53,8 @@ source $privateerDir/ccp4.envsetup-sh
 
 projectSigmaDir=$privateerDir/project_sigma
 
-cd $projectSigmaDir
-cd $projectSigmaDir/pdb_mirror
+# cd $projectSigmaDir
+# cd $projectSigmaDir/pdb_mirror
 
 # rsync -rlpt -v -z --delete --port=33444 \
 # rsync.rcsb.org::ftp_data/structures/divided/pdb/ ./pdb
@@ -72,7 +72,7 @@ filename=$(awk NR==$SLURM_ARRAY_TASK_ID /users/hb1115/scratch/PDB_anal/viking_jo
 python3 $projectSigmaDir/data_collection/prepare_glycans_for_clustering.py -folder $filename
 
 cd $projectSigmaDir
-ls
+ls $projectSigmaDir/pdb_mirror/pdb
 git status
 
 echo Job completed at `date`
