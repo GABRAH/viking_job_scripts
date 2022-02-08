@@ -1,13 +1,13 @@
 #!/bin/sh
-#SBATCH --job-name=uniprot_data_curation                            # Job name
+#SBATCH --job-name=uniprot_data_curation                         # Job name
 #SBATCH --mail-type=BEGIN,END,FAIL                              # Mail events (NONE, BEGIN, END, FAIL, ALL)
 #SBATCH --mail-user=hb1115@york.ac.uk                           # Where to send mail  
 #SBATCH --ntasks=1                                              # Run a single task...
 #SBATCH --cpus-per-task=1                                       # ...with 16 cores
 #--partition=week                                               # To prevent exceeding time limit 
-#SBATCH --mem=8gb                                              # Job memory request
-#SBATCH --time=10:00:00                                         # Time limit hrs:min:sec
-#SBATCH --output=uniprot_curation_%j.log                     # Standard output and error log
+#SBATCH --mem=16gb                                              # Job memory request
+#SBATCH --time=48:00:00                                         # Time limit hrs:min:sec
+#SBATCH --output=improved_uniprot_curation_%j.log               # Standard output and error log
 #SBATCH --account=chem-structglyco-2019
 
 module purge
