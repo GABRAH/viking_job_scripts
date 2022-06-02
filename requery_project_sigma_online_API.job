@@ -6,7 +6,7 @@
 #SBATCH --cpus-per-task=1                                       # ...with 1 cores
 #--partition=week                                               # To prevent exceeding time limit 
 #SBATCH --mem=12gb                                              # Job memory request
-#SBATCH --time=48:00:00                                         # Time limit hrs:min:sec
+#SBATCH --time=12:00:00                                         # Time limit hrs:min:sec
 #SBATCH --output=RCSB_PDB_requery_%j.log                        # Standard output and error log
 #SBATCH --account=chem-structglyco-2019
 
