@@ -6,7 +6,7 @@
 #SBATCH --cpus-per-task=1                                      # ...with 32 cores
 #SBATCH --partition=nodes                                               # To prevent exceeding time limit 
 #SBATCH --mem=4gb                                              # Job memory request
-#SBATCH --time=02:00:00                                         # Time limit hrs:min:sec
+#SBATCH --time=04:00:00                                         # Time limit hrs:min:sec
 #SBATCH --output=wwpdb_pdb_update_%j.log                     # Standard output and error log
 #SBATCH --account=chem-structglyco-2019
 
@@ -35,6 +35,8 @@ cd $mainDir
 cd $mainDir/privateer
 privateerDir=$PWD
 
+rm -rf pdb
+
 echo Current working directory is `pwd`
 echo Running job on host:
 echo -e '\t'`hostname` at `date`
@@ -49,9 +51,14 @@ echo
 
 projectSigmaDir=$privateerDir/project_sigma
 
+cd pdb_mirror
+
+rm -rf pdb
+
 rsync -rlpt -v -z --delete --port=33444 \
 rsync.rcsb.org::ftp_data/structures/divided/pdb/ ./pdb
 
+cd $projectSigmaDir
 
 rm -rf $projectSigmaDir/data_collection/intermediate_output
 rm -rf $projectSigmaDir/data_collection/final_output
