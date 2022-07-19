@@ -35,8 +35,6 @@ cd $mainDir
 cd $mainDir/privateer
 privateerDir=$PWD
 
-rm -rf pdb
-
 echo Current working directory is `pwd`
 echo Running job on host:
 echo -e '\t'`hostname` at `date`
@@ -52,8 +50,6 @@ echo
 projectSigmaDir=$privateerDir/project_sigma
 
 cd pdb_mirror
-
-rm -rf pdb
 
 rsync -rlpt -v -z --delete --port=33444 \
 rsync.rcsb.org::ftp_data/structures/divided/pdb/ ./pdb
