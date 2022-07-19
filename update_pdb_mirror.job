@@ -48,6 +48,7 @@ echo -e '\t'`hostname` at `date`
 echo
 
 projectSigmaDir=$privateerDir/project_sigma
+cd $projectSigmaDir
 
 cd pdb_mirror
 
