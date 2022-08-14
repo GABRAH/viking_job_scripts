@@ -1,13 +1,13 @@
 #!/bin/sh
-#SBATCH --job-name=pdb_mirror_update                            # Job name
+#SBATCH --job-name=pdb_data_curation                            # Job name
 #SBATCH --mail-type=BEGIN,END,FAIL                              # Mail events (NONE, BEGIN, END, FAIL, ALL)
 #SBATCH --mail-user=hb1115@york.ac.uk                           # Where to send mail  
 #SBATCH --ntasks=1                                              # Run a single task...
-#SBATCH --cpus-per-task=1                                      # ...with 32 cores
-#SBATCH --partition=nodes                                               # To prevent exceeding time limit 
-#SBATCH --mem=4gb                                              # Job memory request
-#SBATCH --time=04:00:00                                         # Time limit hrs:min:sec
-#SBATCH --output=wwpdb_pdb_update_%j.log                     # Standard output and error log
+#SBATCH --cpus-per-task=24                                      # ...with 24 cores
+#SBATCH --partition=nodes                                       # To prevent exceeding time limit 
+#SBATCH --mem=24gb                                              # Job memory request
+#SBATCH --time=48:00:00                                         # Time limit hrs:min:sec
+#SBATCH --output=glycosite_analyser_%j.log                      # Standard output and error log
 #SBATCH --account=chem-structglyco-2019
 
 module purge
@@ -42,25 +42,22 @@ echo $SLURM_CPUS_ON_NODE CPU cores available
 echo
 echo Privateer directory is located at $privateerDir
 
-echo My working directory is `pwd`
-echo Running array job index $SLURM_ARRAY_TASK_ID, on host:
-echo -e '\t'`hostname` at `date`
-echo
+source $privateerDir/pvtpython/bin/activate
+source $privateerDir/ccp4.envsetup-sh
 
 projectSigmaDir=$privateerDir/project_sigma
-cd $projectSigmaDir
 
-cd pdb_mirror
+cd $projectSigmaDir/clustering_analysis/data_processing_and_analysis/07_02_2022_improved_privateer_analysis/glycosite-neighbourhood-analyser
+targetDir=$PWD
 
-rsync -rlpt -v -z --delete --port=33444 \
-rsync.rcsb.org::ftp_data/structures/divided/pdb/ ./pdb
+pip3 install -r requirements.txt
+pip install -r requirements.txt
+python3 --version
+which python3
 
-cd $projectSigmaDir
+python3 $targetDir/main.py
+cd $targetDir/data/intermediate_data
+ls
+git status
 
-rm -rf $projectSigmaDir/data_collection/intermediate_output
-rm -rf $projectSigmaDir/data_collection/final_output
-
-mkdir $projectSigmaDir/data_collection/intermediate_output
-mkdir $projectSigmaDir/data_collection/final_output
-
-ls $projectSigmaDir/data_collection
+echo Job completed at `date`
